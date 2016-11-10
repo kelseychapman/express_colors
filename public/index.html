@@ -20,38 +20,61 @@
 
 <body ng-controller='MainController'>
 
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">
-                        <span class="sr-only">"Toggle Nav"</span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">Colors Are Awesome</a>
-                </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">
+                    <span class="sr-only">"Toggle Nav"</span>
+                </button>
+                <a class="navbar-brand" href="index.html">Colors Are Awesome</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By {{sort.sortName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ng-click="sortByVotes()"><a href="#">Votes</a></li>
+                        <li ng-click="sortByDate()"><a href="#">Date</a></li>
+                        <li ng-click="sortByTitle()"><a href="#">Title</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="collapse navbar-collapse" id="navbar">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" ng-model="search">
+                    </div>
+                </form>
                 <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By {{sort.sortName}}<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li ng-click="sortByVotes()"><a href="#">Votes</a></li>
-                            <li ng-click="sortByDate()"><a href="#">Date</a></li>
-                            <li ng-click="sortByTitle()"><a href="#">Title</a></li>
-                        </ul>
+                    <button type="button" class="btn btn-default" ng-click="toggleForm()">new post</button>
+                </ul>
+
+
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-show="userWelcome" class="dropdown">
+                <a href="#/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            Welcome, {{userWelcome}}!
+            <span class="caret"></span>
+        </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#/dashboard">Dashboard</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a ng-click="logout()" href="javascript:void(0)">Logout</a>
                     </li>
                 </ul>
-                <div class="collapse navbar-collapse" id="navbar">
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search" ng-model="search">
-                        </div>
-                    </form>
-                    <ul class="nav navbar-nav">
-                        <button type="button" class="btn btn-default" ng-click="toggleForm()">new post</button>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+            </li>
+            <li ng-hide="userWelcome">
+                <a ng-click="hideSearch()" href="#/loginsignup">Want to join? Login or signup in seconds.</a>
+            </li>
+        </ul>
+          </div>
+          </div>
+    </nav>
 
     <ng-view></ng-view>
 
 </body>
+
 </html>
