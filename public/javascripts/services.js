@@ -9,7 +9,9 @@ app.service('postsService', function($http) {
       })
     },
     newPost: function(post) {
+      console.log('i am soooooooo cool');
           return $http.post('/api/newpost', post).then(function(response) {
+            console.log(response.data);
             return response.data
           })
     }

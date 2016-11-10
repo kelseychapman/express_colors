@@ -26,23 +26,21 @@ router.get('/allposts', function(req, res, next) {
 });
 
 
-
 router.post('/newpost', function(req, res, next) {
-  if (!req.session.userInfo ){
-    console.log('Not authorized');
-  } else {
     knex('posts')
     .returning('*')
     .insert({
-      user_id: req.session.userInfo.id,
+      user_id: 2,
       title: req.body.title,
-      body: req.body.description,
+      description: req.body.description,
       img: req.body.image,
-      voteCount: 1
+      votes: 1
     }).then(function(results) {
-      res.send(results)
+      knex('posts')
+      .then((posts) => {
+        res.send(posts)
+      })
     })
-  }
 })
 
 module.exports = router;

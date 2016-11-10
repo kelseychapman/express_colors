@@ -47,6 +47,17 @@ $scope.sortByTitle = function() {
 }
 
 
+  $scope.sortBy = function(input) {
+    $scope.sortType = input;
+    if (input == '-voteCount') {
+      $scope.sortDisplay = 'Votes'
+    } else {
+      $scope.sortDisplay = 'Title'
+    }
+  }
+
+
+
 //*************************************************************************
 //show new post form
   $scope.changeBool = function() {
@@ -60,29 +71,14 @@ $scope.sortByTitle = function() {
 
 //*************************************************************************
 //post valid results from form into a new object and clear after sumbmitted
-$scope.newPostObj = {}
-$scope.newPost = function(obj) {
-    postsService.newPost(obj).then(function(results) {
-      $scope.newPostObj = {}
-      $scope.postFormBool = false
-      $scope.postForm.$setPristine()
-    })
-  }
 
-  $scope.formHandler = function() {
-	if ($scope.newPost.$valid) {
-		let post = {
-			image: $scope.newPost.postImageUrl.$modelValue,
-			title: $scope.newPost.postTitle.$modelValue,
-			votes: 0,
-			author: $scope.newPost.postAuthor.$modelValue,
-			body: $scope.newPost.postBody.$modelValue,
-			date: Date.now(),
-			comments : []
-		}
-		$scope.posts.push(post);
-		$scope.newPost.$setPristine();
-	}
+$scope.newPost = function(obj) {
+  console.log('hey i am cool');
+  postsService.newPost(obj).then(function(results) {
+    $scope.posts = results;
+    $scope.postFormBool = false
+    $scope.postForm.$setPristine()
+  })
 }
 
 
