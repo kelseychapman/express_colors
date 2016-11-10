@@ -1,5 +1,8 @@
 app.controller('MainController', ['$scope','$log', 'postsService', function($scope,$log, postsService){
 
+
+
+
 // $scope.view.search = ''
 
 // var newObject = {
@@ -58,6 +61,32 @@ $scope.sortByTitle = function() {
 		sortName: 'Title'
 	}
 }
+$scope.newPostObj = {}
+$scope.newPost = function(obj) {
+    postsService.newPost(obj).then(function(results) {
+      $scope.newPostObj = {}
+      $scope.postFormBool = false
+      $scope.postForm.$setPristine()
+    })
+  }
+
+$scope.showSearch = function() {
+    $scope.searchBar = true
+  }
+
+  $scope.hideSearch = function() {
+    $scope.searchBar = false
+  }
+
+
+  $scope.changeBool = function() {
+    if (!$scope.postFormBool) {
+      $scope.postFormBool = true;
+    } else {
+      $scope.postFormBool = false;
+    }
+  }
+
 
 //toggle form for submitting a post
 $scope.showForm = false

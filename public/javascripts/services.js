@@ -9,9 +9,9 @@ app.service('postsService', function($http) {
       })
     },
     newPost: function(post) {
-      return $http.post('/api/newpost', post).then(function(response) {
-        return response.data
-      })
+          return $http.post('/api/newpost', post).then(function(response) {
+            return response.data
+          })
     }
   }
 })
