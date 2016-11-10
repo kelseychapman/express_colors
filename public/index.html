@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="colors">
+
+<head>
+    <meta charset="utf-8">
+    <title>Colors</title>
+    <script src="https://code.angularjs.org/1.5.8/angular.js" charset="utf-8"></script>
+    <script src="https://code.angularjs.org/1.5.8/angular-route.js" charset="utf-8"></script>
+    <script src="https://code.angularjs.org/1.5.8/angular-cookies.js" charset="utf-8"></script>
+    <script src="javascripts/app.js" charset="utf-8"></script>
+    <script src="javascripts/services.js" charset="utf-8"></script>
+    <script src="javascripts/controllers.js" charset="utf-8"></script>
+    <script src="javascripts/routes.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" charset="utf-8"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="stylesheets/style.css" media="screen" title="no title">
+</head>
+<!-- define angular controller -->
+
+<body ng-controller='MainController'>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">
+                        <span class="sr-only">"Toggle Nav"</span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Colors Are Awesome</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By {{sort.sortName}}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li ng-click="sortByVotes()"><a href="#">Votes</a></li>
+                            <li ng-click="sortByDate()"><a href="#">Date</a></li>
+                            <li ng-click="sortByTitle()"><a href="#">Title</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search" ng-model="search">
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav">
+                        <button type="button" class="btn btn-default" ng-click="toggleForm()">new post</button>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    <ng-view></ng-view>
+
+</body>
+</html>

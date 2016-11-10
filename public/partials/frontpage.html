@@ -1,0 +1,126 @@
+<div class="container">
+      <!--Submit Post Form-->
+        <div>
+            <form class="newPost" name="newPost" ng-if="showForm==true" ng-submit="formHandler()" novalidate autocomplete="off">
+                <div class="form-group">
+                    <label for="postTitle">Title</label>
+                    <input required type="text" class="form-control" id="postTitle" name="postTitle" ng-model="postTitle" placeholder="Title">
+                    <p class="error" ng-show="this.newPost.$submitted && this.newPost.postTitle.$invalid">Please enter a title</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="postAuthor">Author</label>
+                    <input required type="text" class="form-control" id="postAuthor" name="postAuthor" ng-model="postAuthor" placeholder="Author">
+                    <p class="error" ng-show="this.newPost.$submitted && this.newPost.postAuthor.$invalid">Author Name</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="postImageUrl">Image URL</label>
+                    <input required type="text" class="form-control" id="postImageUrl" name="postImageUrl" ng-model="postImageUrl" placeholder="Image URL">
+                    <p class="error" ng-show="this.newPost.$submitted && this.newPost.postImageUrl.$invalid">Image url</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="postBody">Body</label>
+                    <input required type="text" class="form-control" id="postBody" name="postBody" ng-model="postBody" placeholder="Body">
+                    <p class="error" ng-show="this.newPost.$submitted && this.newPost.postBody.$invalid">Description of post</p>
+                </div>
+                <button type="submit" class="btn btn-default">Submit Post</button>
+            </form>
+        </div>
+        <!-- End Submit Post Form-->
+
+
+        <!-- Post container-->
+        <div ng-repeat="post in posts | orderBy:sort.method | filter:search" class="row post well well-lg">
+            <div class="col-md-2">
+                <img ng-src="{{post.img}}" alt="{{post.title}}" width="140px" />
+            </div>
+            <!--start of post-->
+            <div class="col-md-10">
+                <div class="row title">
+                    <h3>{{currentTime}}{{post.title}}
+                        <span ng-click="upvotePost(post)" class="comment-link glyphicon glyphicon-plus-sign"></span>
+                        <span ng-click="downvotePost(post)" class="comment-link glyphicon glyphicon-minus-sign"></span>
+                        <span ng-class="{
+                          negative: post.upvotes < 0,
+                          positive: post.upvotes > 0,
+                          zero: post.upvotes === 0}">{{post.upvotes}}</span>
+                    </h3>
+                </div>
+                <div>
+                    <div class="row author">
+                        <p class="pull-right">By {{post.author}}</p>
+                    </div>
+                    <div class="row body">
+                        <p>{{post.body}}</p>
+                    </div>
+                </div>
+                <div class="row date-comments">
+                      <p>{{post.date}}</p>
+                </div>
+                  <hr>
+            <!--end of post-->
+
+
+            <!-- Number of comments -->
+            <div ng-app="ngAnimate">
+                <div class="comment-link"><span class="glyphicon glyphicon-comment"></span>
+                        <ng-pluralize count="post.comments.length"
+                            when="{'0': '{} Comments',
+                              'one': '{} Comment',
+                                'other': '{} Comments'}">
+                        </ng-pluralize>
+
+            <!-- Toggle view comments -->
+                    <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide">
+                        <br/>
+                    <div class="check-element animate-show" ng-show="checked">
+                          <div ng-repeat="comment in post.comments">
+                                <div class="row author">
+                                    <p class="pull-right">By {{comment.author}}</p>
+                                </div>
+                                <div class="row body">
+                                    <p>{{comment.text}}</p>
+                                </div>
+                          </div>
+                     </div>
+                  </div>
+              </div>
+            <!-- end toggle comment show -->
+
+            <hr>
+
+            <!--comment toggle form-->
+            <div class="comment-link" ng-click="toggleCommentForm(post)">
+                  <span class="glyphicon glyphicon-pencil"></span>Add Comment
+            </div>
+            <div ng-show="post.commentFormVisible" class="row add-comment-form">
+                    <form name="commentForm" class="form-inline" ng-submit="addComment(post, commentForm)" novalidate autocomplete="off">
+                              <div class="form-group">
+                                  <label for="commentAuthor">Author</label>
+                                  <input required type="text" class="form-control" name="commentAuthor" ng-model="commentAuthor" placeholder="Author">
+                              </div>
+                              <div class="form-group">
+                                  <label for="commentText">Text</label>
+                                  <input required type="text" class="form-control" name="commentText" ng-model="commentText" placeholder="Enter some text">
+                              </div>
+                        <button type="submit" class="btn btn-default">Add Comment</button>
+                    </form>
+              </div>
+              <div ng-show="post.newCommentsVisible" class="row comments">
+                  <ul>
+                    <li ng-repeat='comment in post.newComments'>
+                      <span class="comment-author">{{newComment.author}}</span> - {{newComment.text}}
+                    </li>
+                  </ul>
+              </div>
+              <!--End-->
+
+
+              <!--End of add new comments container-->
+              </div>
+          <!--end of content in post box-->
+          </div>
+      <!-- End of Post Containter-->
+      </div>
