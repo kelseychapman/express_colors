@@ -11,41 +11,27 @@ app.controller('MainController', ['$scope','$log', 'postsService', function($sco
 // }
 // newObject.saysHi()
 
+//*************************************************************************
+//get posts from database
 postsService.getPosts().then(function(response){
 // console.log(posts);
   $scope.posts = response;
-
 })
 
-	$scope.formHandler = function() {
-	if ($scope.newPost.$valid) {
-		let post = {
-			image: $scope.newPost.postImageUrl.$modelValue,
-			title: $scope.newPost.postTitle.$modelValue,
-			upvotes: 0,
-			author: $scope.newPost.postAuthor.$modelValue,
-			body: $scope.newPost.postBody.$modelValue,
-			date: Date.now(),
-			comments : []
-		}
-		$scope.posts.push(post);
-		$scope.newPost.$setPristine();
-	}
-}
 
+//*************************************************************************
 //drop down sorting menu in nav
 $scope.sort = {
-		method: '-upvotes',
+		method: '-votes',
 		sortName: 'Votes'
 	}
 
 $scope.sortByVotes = function() {
 	$scope.sort = {
-				method: '-upvotes',
+				method: '-votes',
 				sortName: 'Votes'
 			}
 		}
-
 
 $scope.sortByDate = function() {
 	$scope.sort = {
@@ -59,18 +45,10 @@ $scope.sortByTitle = function() {
 		sortName: 'Title'
 	}
 }
-$scope.newPostObj = {}
-$scope.newPost = function(obj) {
-    postsService.newPost(obj).then(function(results) {
-      $scope.newPostObj = {}
-      $scope.postFormBool = false
-      $scope.postForm.$setPristine()
-    })
-  }
 
 
-
-
+//*************************************************************************
+//show new post form
   $scope.changeBool = function() {
     if (!$scope.postFormBool) {
       $scope.postFormBool = true;
@@ -80,14 +58,36 @@ $scope.newPost = function(obj) {
   }
 
 
-//toggle form for submitting a post
-$scope.showForm = false
-$scope.toggleForm = function (){
-	// $log.info('before', $scope.showForm);
-		$scope.showForm = !$scope.showForm
-			// $log.info('after', $scope.showForm);
+//*************************************************************************
+//post valid results from form into a new object and clear after sumbmitted
+$scope.newPostObj = {}
+$scope.newPost = function(obj) {
+    postsService.newPost(obj).then(function(results) {
+      $scope.newPostObj = {}
+      $scope.postFormBool = false
+      $scope.postForm.$setPristine()
+    })
+  }
+
+  $scope.formHandler = function() {
+	if ($scope.newPost.$valid) {
+		let post = {
+			image: $scope.newPost.postImageUrl.$modelValue,
+			title: $scope.newPost.postTitle.$modelValue,
+			votes: 0,
+			author: $scope.newPost.postAuthor.$modelValue,
+			body: $scope.newPost.postBody.$modelValue,
+			date: Date.now(),
+			comments : []
+		}
+		$scope.posts.push(post);
+		$scope.newPost.$setPristine();
+	}
 }
 
+
+//*************************************************************************
+//toggle form for submitting a post
 // $scope.formShow = function() {
 // 	if ($scope.postFormVisible === false) {
 // 		$scope.postFormVisible = true;
@@ -96,17 +96,31 @@ $scope.toggleForm = function (){
 // 	}
 // }
 
+//*************************************************************************
+//upvotes and down votes
+$scope.upvotePost = function(post) {
+  post.votes++;
+}
 
+$scope.downvotePost = function(post) {
+  post.votes--;
+}
+
+
+//*************************************************************************
 	//upvotes and down votes
 	$scope.upvotePost = function(post) {
-    post.upvotes++;
+    post.votes++;
   }
 
   $scope.downvotePost = function(post) {
-    post.upvotes--;
+    post.votes--;
   }
 
-//comment show
+
+
+//*************************************************************************
+//comments section in posts
 $scope.commentShow = function(post) {
 	if (post.commentsVisible === false) {
 	  post.commentsVisible = true;
@@ -115,18 +129,6 @@ $scope.commentShow = function(post) {
 	}
 }
 
-//add new comment showForm$scope.commentShow = function(post) {
-$scope.newCommentShow = function(post) {
-	if (post.newCommentsVisible === false) {
-	  post.newCommentsVisible = true;
-	} else {
-	  post.newCommentsVisible = false;
-	}
-}
-
-
-
-//comments
 $scope.toggleCommentForm = function(post) {
     if (post.commentFormVisible === false) {
       post.commentFormVisible = true;
@@ -152,7 +154,7 @@ $scope.toggleCommentForm = function(post) {
 }]);
 
 
-//auth
+// auth
 app.controller('auth', function($scope, $cookies, authService) {
 
   $scope.userObj = {}

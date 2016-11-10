@@ -1,5 +1,4 @@
 <div class="container">
-      frontpag
         <!-- Post container-->
         <div ng-repeat="post in posts | orderBy:sort.method | filter:search" class="row post well well-lg">
             <div class="col-md-2">
@@ -7,19 +6,19 @@
             </div>
             <!--start of post-->
             <div class="col-md-10">
-                <div class="row title">
-                    <h3>{{currentTime}}{{post.title}}
-                        <span ng-click="upvotePost(post)" class="comment-link glyphicon glyphicon-plus-sign"></span>
-                        <span ng-click="downvotePost(post)" class="comment-link glyphicon glyphicon-minus-sign"></span>
-                        <span ng-class="{
-                          negative: post.upvotes < 0,
-                          positive: post.upvotes > 0,
-                          zero: post.upvotes === 0}">{{post.upvotes}}</span>
-                    </h3>
-                </div>
+              <div class="row title">
+                  <h3>{{currentTime}}{{post.title}}
+                      <span ng-click="upvotePost(post)" class="comment-link glyphicon glyphicon-plus-sign"></span>
+                      <span ng-click="downvotePost(post)" class="comment-link glyphicon glyphicon-minus-sign"></span>
+                      <span ng-class="{
+                        negative: post.votes < 0,
+                        positive: post.votes > 0,
+                        zero: post.votes === 0}">{{post.votes}}</span>
+                  </h3>
+              </div>
                 <div>
                     <div class="row author">
-                        <p class="pull-right">By {{post.author}}</p>
+                        <p class="pull-left">By {{post.username}}</p>
                     </div>
                     <div class="row body">
                         <p>{{post.body}}</p>
@@ -46,11 +45,11 @@
                         <br/>
                     <div class="check-element animate-show" ng-show="checked">
                           <div ng-repeat="comment in post.comments">
-                                <div class="row author">
-                                    <p class="pull-right">By {{comment.author}}</p>
-                                </div>
                                 <div class="row body">
-                                    <p>{{comment.text}}</p>
+                                    <p>{{comment.description}}</p>
+                                </div>
+                                <div class="row author">
+                                    <p class="pull-left">By {{comment.username}}</p>
                                 </div>
                           </div>
                      </div>
@@ -61,8 +60,10 @@
             <hr>
 
             <!--comment toggle form-->
-            <div class="comment-link" ng-click="toggleCommentForm(post)">
+            <div>
+              <button type="button" class="btn btn-default btn-sm" class="comment-link" ng-click="toggleCommentForm(post)">
                   <span class="glyphicon glyphicon-pencil"></span>Add Comment
+              </button>
             </div>
             <div ng-show="post.commentFormVisible" class="row add-comment-form">
                     <form name="commentForm" class="form-inline" ng-submit="addComment(post, commentForm)" novalidate autocomplete="off">
