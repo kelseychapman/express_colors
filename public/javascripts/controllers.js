@@ -1,4 +1,3 @@
-
 app.controller('MainController', ['$scope','$log', 'postsService', function($scope,$log, postsService){
 
 // $scope.view.search = ''
@@ -12,7 +11,7 @@ app.controller('MainController', ['$scope','$log', 'postsService', function($sco
 // newObject.saysHi()
 
 postsService.getPosts().then(function(response){
-console.log(posts);
+// console.log(posts);
   $scope.posts = response;
 
 })
@@ -131,21 +130,3 @@ $scope.toggleCommentForm = function(post) {
     }
   }
 }]);
-
-app.controller('auth', function($scope, $cookies, authService) {
-
-  $scope.userObj = {}
-
-  $scope.signup = function(obj) {
-    authService.signup(obj).then(function(response) {})
-  }
-  $scope.login = function(obj) {
-    authService.login(obj).then(function(response) {})
-  }
-})
-
-app.controller('dashboard', function($scope, userService) {
-  userService.getUser().then(function(results) {
-    $scope.user = results[0]
-  })
-})
