@@ -1,8 +1,6 @@
 app.controller('MainController', ['$scope','$log', 'postsService', function($scope,$log, postsService){
 
 
-
-
 // $scope.view.search = ''
 
 // var newObject = {
@@ -70,13 +68,7 @@ $scope.newPost = function(obj) {
     })
   }
 
-$scope.showSearch = function() {
-    $scope.searchBar = true
-  }
 
-  $scope.hideSearch = function() {
-    $scope.searchBar = false
-  }
 
 
   $scope.changeBool = function() {
@@ -96,13 +88,13 @@ $scope.toggleForm = function (){
 			// $log.info('after', $scope.showForm);
 }
 
-$scope.formShow = function() {
-	if ($scope.postFormVisible === false) {
-		$scope.postFormVisible = true;
-	} else {
-		$scope.postFormVisible = false;
-	}
-}
+// $scope.formShow = function() {
+// 	if ($scope.postFormVisible === false) {
+// 		$scope.postFormVisible = true;
+// 	} else {
+// 		$scope.postFormVisible = false;
+// 	}
+// }
 
 
 	//upvotes and down votes
@@ -113,7 +105,6 @@ $scope.formShow = function() {
   $scope.downvotePost = function(post) {
     post.upvotes--;
   }
-
 
 //comment show
 $scope.commentShow = function(post) {
@@ -159,3 +150,19 @@ $scope.toggleCommentForm = function(post) {
     }
   }
 }]);
+
+
+//auth
+app.controller('auth', function($scope, $cookies, authService) {
+
+  $scope.userObj = {}
+
+  $scope.signup = function(obj) {
+    authService.signup(obj).then(function(response) {})
+  }
+
+  $scope.login = function(obj) {
+    authService.login(obj).then(function(response) {})
+  }
+
+})

@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', api);
 
+
 app.all('*', (req,res,next) => {
   res.sendFile('index.html', { root: __dirname + '/public/'})
 })
