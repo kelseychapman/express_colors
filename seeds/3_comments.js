@@ -15,4 +15,5 @@ exports.seed = function(knex) {
                 description: "Here is a comment! yay comments",
             }]);
         });
+        
 };
