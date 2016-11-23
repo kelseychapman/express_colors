@@ -8,6 +8,7 @@ exports.seed = function(knex) {
         username: 'jeff',
         hashed_pw: '$2a$12$C9AYYmcLVGYlGoO4vSZTPud9ArJwbGRsJ6TUsNULzR48z8fOnTXbS'
       },
+
       {
         username: 'tucker',
         hashed_pw: '$2a$12$C9AYYmcLVGYlGoO4vSZTPud9ArJwbGRsJ6TUsNULzR48z8fOnTXbS'

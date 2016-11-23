@@ -7,6 +7,7 @@ app.service('postsService', function($http) {
         return response.data
 
       })
+      
     },
     newPost: function(post) {
       console.log('i am soooooooo cool');
