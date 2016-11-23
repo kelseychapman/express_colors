@@ -10,7 +10,7 @@ app.controller('MainController', ['$scope','$log', 'postsService', function($sco
 //   }
 // }
 // newObject.saysHi()
-
+   
 //*************************************************************************
 //get posts from database
 postsService.getPosts().then(function(response){
